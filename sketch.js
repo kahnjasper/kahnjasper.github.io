@@ -1,45 +1,39 @@
+var sea,ship;
+var seaImg,shipImg;
 
-var trex ,trex_running;
 function preload(){
-  trex_running = loadAnimation("trex1.png", "trex3.png", "trex4.png")
-  ground_image = loadImage("ground2.png")
+  //uncomment the code to add animation to ship 
+
+  shipImg1 = loadAnimation("ship-1.png","ship-2.png","ship-1.png","ship-2.png");
+  
+  seaImg = loadImage("sea.png");
 }
 
 function setup(){
-  createCanvas(600,200)
-  
-  //create a trex sprite
-  trex = createSprite(50,160,50,50)
-  trex.addAnimation("running", trex_running)
-  trex.scale = 0.5
+  createCanvas(400,400);
+  background("blue");
 
-  //ground sprite
-  ground = createSprite(300,190,600,20);
-  ground.addImage(ground_image)
+  // Moving background
+  sea=createSprite(400,200);
+  sea.addImage(seaImg);
+  sea.velocityX = -5;
+  sea.scale=0.3;
+
   
+  ship = createSprite(130,200,30,30);
+  ship.addAnimation("movingShip",shipImg1);
+  ship.scale =0.25;
   
- 
 }
 
-function draw(){
-  background(160);
+function draw() {
+  background(0);
+  sea.velocityX = -3;
 
-  if(keyDown("space")){
-    trex.velocityY = -10;
+  if(sea.x < 0){
+    sea.x = sea.width/8;
   }
 
-  //false gravity
-  trex.velocityY +=0.5;
-
-  //collide
-  trex.collide(ground);
-
-  //scrolling
-  ground.velocityX = -5.5
-
-  if(ground.x<0){
-    ground.x = ground.width/2
-  }
-  
-  drawSprites()
+ 
+  drawSprites();
 }
